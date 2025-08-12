@@ -1,0 +1,111 @@
+{
+  "beds": [
+    {
+      "id": "bed_01",
+      "name": "North Raised Bed",
+      "soil": {
+        "composition": "50% Topsoil, 30% Compost, 20% Peat Moss",
+        "last_amended": "2025-03-15",
+        "notes": "Good drainage, gets full sun after 10 AM."
+      },
+      "crops": [
+        {
+          "id": "crop_01a",
+          "name": "Tomato",
+          "variety": "Celebrity",
+          "quantity": 4,
+          "planting_date": "2025-04-20"
+        },
+        {
+          "id": "crop_01b",
+          "name": "Basil",
+          "variety": "Genovese",
+          "quantity": 6,
+          "planting_date": "2025-04-20"
+        }
+      ]
+    },
+    {
+      "id": "bed_02",
+      "name": "Herb Spiral",
+      "soil": {
+        "composition": "Sandy Loam Mix",
+        "last_amended": "2025-03-10",
+        "notes": "Top is drier for Mediterranean herbs."
+      },
+      "crops": [
+        {
+          "id": "crop_02a",
+          "name": "Rosemary",
+          "variety": "Arp",
+          "quantity": 1,
+          "planting_date": "2024-10-05"
+        },
+        {
+          "id": "crop_02b",
+          "name": "Okra",
+          "variety": "Clemson Spineless",
+          "quantity": 8,
+          "planting_date": "2025-05-15"
+        }
+      ]
+    },
+    {
+      "id": "bed_03",
+      "name": "East Vegetable Bed",
+      "soil": {
+        "composition": "60% Topsoil, 25% Compost, 15% Sand",
+        "last_amended": "2025-03-20",
+        "notes": "Full sun all day, excellent for heat-loving crops."
+      },
+      "crops": [
+        {
+          "id": "crop_03a",
+          "name": "Cucumber",
+          "variety": "Marketmore 76",
+          "quantity": 3,
+          "planting_date": "2025-04-25"
+        },
+        {
+          "id": "crop_03b",
+          "name": "Nasturtium",
+          "variety": "Alaska Mix",
+          "quantity": 5,
+          "planting_date": "2025-04-25"
+        }
+      ]
+    }
+  ],
+  "tasks": [
+    {
+      "id": "task_01",
+      "description": "Water the North Raised Bed",
+      "due_date": "2025-08-12",
+      "is_completed": false
+    },
+    {
+      "id": "task_02",
+      "description": "Check tomatoes for hornworms",
+      "due_date": "2025-08-13",
+      "is_completed": false
+    },
+    {
+      "id": "task_03",
+      "description": "Turn compost pile (add chicken manure)",
+      "due_date": "2025-08-17",
+      "is_completed": false
+    },
+    {
+      "id": "task_04",
+      "description": "Harvest okra from Herb Spiral",
+      "due_date": "2025-08-12",
+      "is_completed": true
+    },
+    {
+      "id": "task_05",
+      "description": "Fertilize tomatoes with fish emulsion",
+      "due_date": "2025-08-14",
+      "is_completed": false
+    }
+  ]
+}

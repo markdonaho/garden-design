@@ -48,7 +48,7 @@ A responsive Flutter web app that helps manage garden beds, track crops, monitor
 ## 📋 **Session-Based Implementation Plan**
 
 ### **Session 1: Project Setup & Data Foundation** 🚀
-**Goal:** Initialize Flutter project with dependencies and JSON data structure
+**Goal:** Initialize Flutter project with dependencies and JSON data structure. Clean out previosu design and early docs.
 
 **Deliverables:**
 - ✅ Flutter project created (`garden_planner`)
