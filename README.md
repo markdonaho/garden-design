@@ -1,7 +1,7 @@
 # 🌱 Flutter Garden Planner App
 **A practical, user-friendly garden management app for parents**  
 **Technology:** Flutter Web with Provider state management  
-**Status:** Session 1 Complete - Ready for Session 2 Development  
+**Status:** Sessions 1–3 Complete — Ready for Session 4 (Home UI & Garden Layout)  
 
 ## 🎯 **Project Overview**
 
@@ -34,10 +34,10 @@ A responsive Flutter web app that helps manage garden beds, track crops, monitor
 ## 📋 **Development Plan**
 
 ### **Session-Based Implementation (9 Sessions)**
-1. **Session 1:** ✅ Project Setup & Data Foundation 🚀 **COMPLETED**
-2. **Session 2:** Data Modeling with Dart 🏗️ **NEXT**
-3. **Session 3:** State Management Setup ⚙️
-4. **Session 4:** Home Screen & Garden Layout 🏠
+1. **Session 1:** ✅ Project Setup & Data Foundation — Completed
+2. **Session 2:** ✅ Data Modeling with Dart — Completed
+3. **Session 3:** ✅ State Management Setup (Provider) — Completed
+4. **Session 4:** 🏠 Home Screen & Garden Layout — Next
 5. **Session 5:** Bed Detail Modal 📋
 6. **Session 6:** Visual Garden Representation 🎨
 7. **Session 7:** Task Management System ✅
@@ -70,6 +70,18 @@ garden-design/
     ├── summaries/                     # Session summaries
     └── transcripts/                   # Detailed session logs
 ```
+
+## ✅ Current Progress
+
+- Models implemented: `Crop`, `Soil`, `Bed`, `GardenTask`
+- Provider integrated: `GardenProvider` loads `assets/garden_data.json`
+- App renders counts in Chrome: Garden Beds and Active Tasks
+
+## 📝 TODO (Up Next)
+
+- Implement `HomeScreen` and `GardenLayoutView` with responsive bed grid
+- Wire bed tap to open detail modal (placeholder OK in next session)
+- Prepare icon strategy (initially built-in icons; custom SVGs later)
 
 ## 🚀 **Getting Started**
 
@@ -152,20 +164,10 @@ This archived work provides the foundation and data structure for the Flutter ap
 
 ## 🚀 **Current Development Status**
 
-### **Session 1: Project Setup & Data Foundation** ✅ **COMPLETED**
-- **Flutter Project:** `garden_planner/` created and configured
-- **Dependencies:** Provider, shared_preferences, cupertino_icons installed
-- **Assets:** `garden_data.json` with initial garden data structure
-- **Validation:** Project compiles without errors
-- **Foundation:** Ready for Session 2: Data Modeling with Dart
+### ✅ Sessions Completed
+- Session 1: Project setup, dependencies, assets
+- Session 2: Data models with JSON mapping
+- Session 3: Provider integration and data load
 
-### **Next Steps: Session 2**
-- Create type-safe Dart classes for garden data
-- Implement JSON serialization/deserialization
-- Establish data model foundation for app development
-
----
-
-**Status:** 🚀 Session 1 Complete - Ready for Session 2 Development  
-**Project Foundation:** ✅ Flutter project created and configured  
-**Development Readiness:** 100% - Ready to proceed with data modeling**
+### ▶️ Next
+- Session 4: Home UI and Garden Layout grid

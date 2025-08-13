@@ -1,4 +1,6 @@
 # 🌱 Flutter Garden Planner App - Project Plan
+
+Note: Planning is now consolidated into `README.md` (overall plan and TODOs) and `SESSION_IMPLEMENTATION_GUIDE.md` (step-by-step). This document remains for historical reference. Please refer to the two consolidated files for the latest source of truth.
 **Objective:** Build a practical, user-friendly garden management app for parents  
 **Technology:** Flutter Web with Provider state management  
 **Target Users:** Gardeners who want simple, effective garden tracking  

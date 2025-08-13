@@ -1,4 +1,6 @@
 # 🚀 Quick Start Guide - Flutter Garden App
+
+Note: The canonical plan and step-by-step implementation are consolidated into `README.md` and `SESSION_IMPLEMENTATION_GUIDE.md`. This quick start remains as a lightweight onboarding reference; for authoritative steps and current status, see those files.
 **Get your garden planner app running in under 30 minutes!**
 
 ---

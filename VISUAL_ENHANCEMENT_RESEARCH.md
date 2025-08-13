@@ -1,4 +1,6 @@
 # 🎨 Visual Enhancement Research - Garden App
+
+Note: Visual planning and next actions are consolidated into `README.md` (high-level plan/TODOs) and `SESSION_IMPLEMENTATION_GUIDE.md` (execution steps). Keep this research doc for ideas and references; consult the consolidated files for what to build next.
 **Research and recommendations for plant icons, pathway graphics, and garden visualization**
 
 ---
