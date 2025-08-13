@@ -39,8 +39,8 @@ A responsive Flutter web app that helps manage garden beds, track crops, monitor
 3. **Session 3:** ✅ State Management Setup (Provider) — Completed
 4. **Session 4:** 🏠 Home Screen & Garden Layout — Completed
 5. **Session 5:** 📋 Bed Detail Modal — Completed
-6. **Session 6:** Visual Garden Representation 🎨
-7. **Session 7:** Task Management System ✅
+6. **Session 6:** 🎨 Visual Garden Representation — Completed
+7. **Session 7:** Task Management System 
 8. **Session 8:** Data Persistence 💾
 9. **Session 9:** Polish & Deployment 🚀
 
@@ -61,6 +61,7 @@ garden-design/
 - Models implemented: `Crop`, `Soil`, `Bed`, `GardenTask`
 - Provider integrated: `GardenProvider` loads `assets/garden_data.json`
 - App renders responsive bed grid and bed detail modal in Chrome
+- Crop icons are now displayed in the bed detail view and on the home screen bed cards
 
 ## 📝 TODO (Up Next)
 

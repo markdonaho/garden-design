@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import '../models/garden_models.dart';
+import '../utils/crop_icons.dart';
 
 class BedDetailSheet extends StatelessWidget {
   final Bed bed;
@@ -166,12 +167,10 @@ class BedDetailSheet extends StatelessWidget {
           child: ListTile(
             leading: CircleAvatar(
               backgroundColor: Colors.green[100],
-              child: Text(
-                crop.name[0].toUpperCase(),
-                style: TextStyle(
-                  color: Colors.green[700],
-                  fontWeight: FontWeight.bold,
-                ),
+              child: Icon(
+                CropIcon.getIconForCrop(crop.name),
+                color: Colors.green[700],
+                size: 24,
               ),
             ),
             title: Text(

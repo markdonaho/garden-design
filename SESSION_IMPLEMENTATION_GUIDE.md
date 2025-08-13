@@ -1115,13 +1115,39 @@ flutter run -d chrome
 
 ---
 
-## 🎯 **Next Sessions Preview**
+## 📋 **Session 6: Visual Garden Representation** ✅ Completed
 
-### **Session 6: Visual Garden Representation** 🎨
-- Implement plant icons for each crop type
-- Add pathway and garden layout graphics
-- Create visual garden bed representation
-- Build interactive garden map view
+### **🎯 Session Goal**
+Enhance the visual appeal and clarity of the application by adding icons for crops and refining the styling of the garden bed representations.
+
+### **📁 Files to Create/Modify**
+- `lib/utils/crop_icons.dart` (Created)
+- `lib/widgets/bed_detail_sheet.dart` (Modified)
+- `lib/screens/garden_layout_view.dart` (Modified)
+
+### **🔧 Step-by-Step Instructions**
+
+#### **Step 1: Create Icon Utility**
+Created a new utility file at `lib/utils/crop_icons.dart` containing a `CropIcon` class with a static method `getIconForCrop`. This method maps crop names to Material Design icons, providing a centralized and reusable way to handle crop visuals.
+
+#### **Step 2: Integrate Icons into Bed Detail Sheet**
+In `lib/widgets/bed_detail_sheet.dart`, the `_buildCropsList` widget was updated. The `CircleAvatar` displaying the first letter of the crop name was replaced with an `Icon` widget that uses the new `CropIcon.getIconForCrop` utility.
+
+#### **Step 3: Add Icon Summary to Garden Layout View**
+In `lib/screens/garden_layout_view.dart`, a new private widget `_buildCropIcons` was added to display a row of icons for the first five crops in a bed. This widget was then called from within the `_buildBedCard` to provide a quick visual summary on the main screen.
+
+#### **Step 4: Refine Bed Card Styling**
+The `Card` widget inside `_buildBedCard` was restyled to better represent a garden bed. The `color` was set to `Colors.brown[50]` and a two-pixel-wide brown border was added to the `shape`.
+
+### **✅ Success Criteria**
+- [x] Crop icons are displayed next to each crop in the `BedDetailSheet`.
+- [x] A summary of crop icons is visible on each bed card in the `GardenLayoutView`.
+- [x] Bed cards are styled with a brown border and background, enhancing the garden theme.
+- [x] The app runs successfully, and all visual changes are verified.
+
+---
+
+## 🎯 **Next Sessions Preview**
 
 ### **Session 7: Task Management System**
 - Create task list view with CRUD operations

@@ -5,6 +5,7 @@ import 'package:provider/provider.dart';
 import '../providers/garden_provider.dart';
 import '../models/garden_models.dart';
 import '../widgets/bed_detail_sheet.dart';
+import '../utils/crop_icons.dart';
 
 class GardenLayoutView extends StatelessWidget {
   const GardenLayoutView({super.key});
@@ -61,7 +62,9 @@ class GardenLayoutView extends StatelessWidget {
       elevation: 4.0,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(12.0),
+        side: BorderSide(color: Colors.brown[300]!, width: 2),
       ),
+      color: Colors.brown[50],
       child: InkWell(
         onTap: () {
           showModalBottomSheet<void>(
@@ -106,6 +109,8 @@ class GardenLayoutView extends StatelessWidget {
                 '${bed.crops.length} crops',
                 style: Theme.of(context).textTheme.bodyMedium,
               ),
+              const SizedBox(height: 8),
+              _buildCropIcons(context, bed.crops),
               const SizedBox(height: 4),
               Text(
                 'Last amended: ${bed.soil.lastAmended}',
@@ -135,6 +140,28 @@ class GardenLayoutView extends StatelessWidget {
           ),
         ),
       ),
+    );
+  }
+
+  Widget _buildCropIcons(BuildContext context, List<Crop> crops) {
+    if (crops.isEmpty) {
+      return const SizedBox.shrink();
+    }
+
+    // Display up to 5 icons
+    final iconsToShow = crops.take(5).map((crop) {
+      return Padding(
+        padding: const EdgeInsets.only(right: 4.0),
+        child: Icon(
+          CropIcon.getIconForCrop(crop.name),
+          size: 20,
+          color: Colors.grey[600],
+        ),
+      );
+    }).toList();
+
+    return Row(
+      children: iconsToShow,
     );
   }
 }
