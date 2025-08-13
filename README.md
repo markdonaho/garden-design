@@ -44,31 +44,16 @@ A responsive Flutter web app that helps manage garden beds, track crops, monitor
 8. **Session 8:** Data Persistence 💾
 9. **Session 9:** Polish & Deployment 🚀
 
-## 📁 **Project Structure**
+## 📁 Repository Layout
 
 ```
 garden-design/
-├── README.md                           # This file - Flutter app focus
-├── FLUTTER_GARDEN_APP_PLAN.md         # Complete development roadmap
-├── SESSION_IMPLEMENTATION_GUIDE.md    # Step-by-step development guide
-├── QUICK_START_GUIDE.md               # Get started in 30 minutes
-├── VISUAL_ENHANCEMENT_RESEARCH.md     # Plant icons and graphics research
-├── garden_planner/                    # 🚀 Flutter project (Session 1 Complete)
-│   ├── lib/                           # Dart source code
-│   ├── assets/                        # Garden data JSON
-│   ├── pubspec.yaml                   # Dependencies configured
-│   └── web/                           # Web deployment files
-├── Archive/                           # Completed garden design work
-│   ├── garden-plan.md                 # Technical garden layout
-│   ├── measurements.md                # Coordinate system & dimensions
-│   ├── soil-plans.md                  # Soil composition strategies
-│   ├── planting-schedule.md           # Zone 7b planting calendar
-│   ├── GARDEN_PRESENTATION.md         # Presentation-ready garden plan
-│   ├── IMPLEMENTATION_SUMMARY.md      # Garden design completion summary
-│   └── PROJECT_PLAN.md                # Original 4-phase garden plan
-└── session_archive/                   # Session development logs
-    ├── summaries/                     # Session summaries
-    └── transcripts/                   # Detailed session logs
+├── garden_planner/            # Flutter app
+│   ├── lib/                   # Dart source code (models, providers, screens)
+│   ├── assets/                # Garden data JSON
+│   └── web/                   # Web deployment files
+├── session_archive/           # Session summaries and transcripts
+└── Archive/                   # Historical planning and design docs
 ```
 
 ## ✅ Current Progress
@@ -83,23 +68,50 @@ garden-design/
 - Wire bed tap to open detail modal (placeholder OK in next session)
 - Prepare icon strategy (initially built-in icons; custom SVGs later)
 
-## 🚀 **Getting Started**
+## 🚀 Quick Start
 
-### **Quick Start (30 minutes)**
-Follow the `QUICK_START_GUIDE.md` to get your garden planner app running quickly.
+### Prerequisites
+- Flutter SDK installed and in PATH
+- Chrome browser
+- VS Code or Cursor with Flutter extensions
 
-### **Step-by-Step Development**
-Use the `SESSION_IMPLEMENTATION_GUIDE.md` for detailed, session-by-session development.
+### Create and Run
+```bash
+# If not already created
+flutter create garden_planner
+cd garden_planner
 
-### **Complete Planning**
-Reference `FLUTTER_GARDEN_APP_PLAN.md` for the full development roadmap and architecture.
+# Install dependencies
+flutter pub get
 
-## 🎨 **Visual Enhancement**
+# Run the web app in Chrome
+flutter run -d chrome
+```
 
-The app will include:
-- **Plant Icons:** Clear, recognizable symbols for each crop type
-- **Garden Layout:** Visual representation of bed positioning and pathways
-- **Interactive Elements:** Bed details, task management, and garden planning
+If assets are added or changed, ensure `pubspec.yaml` includes:
+```yaml
+flutter:
+  uses-material-design: true
+  assets:
+    - assets/garden_data.json
+```
+
+## 🎨 Visual Design & Enhancements
+
+### Design Principles
+- Simplicity first: clean UI, intuitive navigation, large touch targets
+- Garden-centric palette: greens, browns; organic shapes and hierarchy
+- Accessibility: high contrast, readable typography, large text options
+
+### Visual Elements
+- Plant icons (built-in initially; custom SVGs as we expand)
+- Garden bed visuals and pathways between beds
+- Status indicators (watering, health, harvest readiness)
+
+### Recommended Packages
+- `flutter_svg` for scalable graphics
+- `font_awesome_flutter` for supplemental icons
+- `flutter_staggered_grid_view` for organic bed layouts (optional)
 
 ## 📱 **User Experience**
 
@@ -151,16 +163,46 @@ The app will include:
 - Integration with garden supply stores
 - Advanced analytics and insights
 
-## 📚 **Garden Design Reference**
+## 🧱 Data Structure (Reference)
 
-The completed garden design work is archived in the `Archive/` directory and includes:
-- **Technical Garden Layout** with Mermaid.js diagrams
-- **Zone 7b (Broken Arrow, OK)** specific timing and strategies
-- **Complete planting calendar** with Gantt charts
-- **Soil composition plans** with amendment tracking
-- **Construction specifications** and measurements
+```json
+{
+  "beds": [
+    {
+      "id": "bed_01",
+      "name": "North Raised Bed",
+      "position": {"x": 10, "y": 10},
+      "soil": { "composition": "...", "last_amended": "...", "notes": "..." },
+      "crops": [ { "id": "...", "name": "...", "variety": "...", "quantity": 4, "planting_date": "..." } ]
+    }
+  ],
+  "tasks": [
+    {
+      "id": "task_01",
+      "description": "Water the North Raised Bed",
+      "due_date": "2025-08-12",
+      "is_completed": false
+    }
+  ]
+}
+```
 
-This archived work provides the foundation and data structure for the Flutter app development.
+### Provider Architecture
+```dart
+class GardenProvider with ChangeNotifier {
+  List<Bed> _beds = [];
+  List<GardenTask> _tasks = [];
+  Future<void> loadGardenData() async { /* load assets/garden_data.json */ }
+}
+```
+
+### Widget Hierarchy
+```
+MyApp
+└── ChangeNotifierProvider<GardenProvider>
+    └── MaterialApp
+        └── Home (Session 4 adds HomeScreen/GardenLayoutView)
+```
 
 ## 🚀 **Current Development Status**
 
