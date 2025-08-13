@@ -1,7 +1,7 @@
 # 🌱 Flutter Garden Planner App
 **A practical, user-friendly garden management app for parents**  
 **Technology:** Flutter Web with Provider state management  
-**Status:** Sessions 1–3 Complete — Ready for Session 4 (Home UI & Garden Layout)  
+**Status:** Sessions 1–5 Complete — Ready for Session 6 (Visual Enhancements)  
 
 ## 🎯 **Project Overview**
 
@@ -37,8 +37,8 @@ A responsive Flutter web app that helps manage garden beds, track crops, monitor
 1. **Session 1:** ✅ Project Setup & Data Foundation — Completed
 2. **Session 2:** ✅ Data Modeling with Dart — Completed
 3. **Session 3:** ✅ State Management Setup (Provider) — Completed
-4. **Session 4:** 🏠 Home Screen & Garden Layout — Next
-5. **Session 5:** Bed Detail Modal 📋
+4. **Session 4:** 🏠 Home Screen & Garden Layout — Completed
+5. **Session 5:** 📋 Bed Detail Modal — Completed
 6. **Session 6:** Visual Garden Representation 🎨
 7. **Session 7:** Task Management System ✅
 8. **Session 8:** Data Persistence 💾
@@ -60,13 +60,13 @@ garden-design/
 
 - Models implemented: `Crop`, `Soil`, `Bed`, `GardenTask`
 - Provider integrated: `GardenProvider` loads `assets/garden_data.json`
-- App renders counts in Chrome: Garden Beds and Active Tasks
+- App renders responsive bed grid and bed detail modal in Chrome
 
 ## 📝 TODO (Up Next)
 
-- Implement `HomeScreen` and `GardenLayoutView` with responsive bed grid
-- Wire bed tap to open detail modal (placeholder OK in next session)
-- Prepare icon strategy (initially built-in icons; custom SVGs later)
+- Add crop icon mapping and visual polish for beds and modal (Session 6)
+- Implement Tasks tab with list, filters, and actions (Session 7)
+- Add local persistence with `shared_preferences` (Session 8)
 
 ## 🚀 Quick Start
 
