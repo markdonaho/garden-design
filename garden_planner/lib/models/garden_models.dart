@@ -101,6 +101,7 @@ class Bed {
 
 class GardenTask {
   final String id;
+  final String? gardenId; // Link to a garden
   final String description;
   final String dueDate;
   final String? notes; // Added for notes
@@ -108,6 +109,7 @@ class GardenTask {
 
   GardenTask({
     required this.id,
+    this.gardenId, // Link to a garden
     required this.description,
     required this.dueDate,
     this.notes, // Added for notes
@@ -117,6 +119,7 @@ class GardenTask {
   factory GardenTask.fromJson(Map<String, dynamic> json) {
     return GardenTask(
       id: json['id'] as String,
+      gardenId: json['gardenId'] as String?, // Link to a garden
       description: json['description'] as String,
       dueDate: json['due_date'] as String,
       notes: json['notes'] as String?, // Added for notes
@@ -127,10 +130,38 @@ class GardenTask {
   Map<String, dynamic> toJson() {
     return {
       'id': id,
+      'gardenId': gardenId, // Link to a garden
       'description': description,
       'due_date': dueDate,
       'notes': notes, // Added for notes
       'is_completed': isCompleted,
+    };
+  }
+}
+
+class Garden {
+  final String id;
+  final String name;
+  final List<Bed> beds; // Beds are part of a garden
+
+  Garden({required this.id, required this.name, required this.beds});
+
+  factory Garden.fromJson(Map<String, dynamic> json) {
+    return Garden(
+      id: json['id'] as String,
+      name: json['name'] as String,
+      beds: (json['beds'] as List<dynamic>?)
+              ?.map((e) => Bed.fromJson(e as Map<String, dynamic>))
+              .toList() ??
+          [],
+    );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'id': id,
+      'name': name,
+      'beds': beds.map((bed) => bed.toJson()).toList(), // Serialize beds
     };
   }
 }

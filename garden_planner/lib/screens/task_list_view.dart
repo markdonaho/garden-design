@@ -1,6 +1,7 @@
 // lib/screens/task_list_view.dart
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import '../models/garden_models.dart'; // Import the models
 import '../providers/garden_provider.dart';
 
 class TaskListView extends StatefulWidget {
@@ -19,18 +20,23 @@ class _TaskListViewState extends State<TaskListView> {
       ),
       body: Consumer<GardenProvider>(
         builder: (context, gardenProvider, child) {
+          if (gardenProvider.areTasksLoading) {
+            return const Center(child: CircularProgressIndicator());
+          }
           if (gardenProvider.tasks.isEmpty) {
             return const Center(child: Text('No tasks yet! Add one below.'));
           }
           return ListView.builder(
-            itemCount: gardenProvider.tasks.length,
+            itemCount: gardenProvider.sortedTasks.length,
             itemBuilder: (context, index) {
-              final task = gardenProvider.tasks[index];
+              final task = gardenProvider.sortedTasks[index];
               return ListTile(
                 leading: Checkbox(
                   value: task.isCompleted,
-                  onChanged: (bool? value) {
-                    gardenProvider.toggleTaskCompletion(task.id);
+                  onChanged: (bool? value) async {
+                    if (value != null) {
+                      await gardenProvider.toggleTaskCompletion(task.id, value);
+                    }
                   },
                 ),
                 title: Text(
@@ -54,8 +60,8 @@ class _TaskListViewState extends State<TaskListView> {
                 ),
                 trailing: IconButton(
                   icon: const Icon(Icons.delete_outline),
-                  onPressed: () {
-                    gardenProvider.deleteTask(task.id);
+                  onPressed: () async {
+                    await gardenProvider.deleteTask(task.id);
                   },
                 ),
               );
@@ -80,6 +86,7 @@ class _TaskListViewState extends State<TaskListView> {
     final TextEditingController descController = TextEditingController();
     final TextEditingController notesController = TextEditingController();
     DateTime selectedDate = DateTime.now();
+    String? selectedGardenId; // To hold the selected garden ID
 
     showDialog(
       context: context,
@@ -97,6 +104,25 @@ class _TaskListViewState extends State<TaskListView> {
                       autofocus: true,
                       decoration: const InputDecoration(labelText: 'Task Description'),
                     ),
+                    const SizedBox(height: 16),
+                    // Garden Selector Dropdown
+                    if (gardenProvider.gardens.isNotEmpty)
+                      DropdownButtonFormField<String>(
+                        hint: const Text('Assign to a Garden (Optional)'),
+                        value: selectedGardenId,
+                        onChanged: (String? newValue) {
+                          setState(() {
+                            selectedGardenId = newValue;
+                          });
+                        },
+                        items: gardenProvider.gardens
+                            .map<DropdownMenuItem<String>>((Garden garden) {
+                          return DropdownMenuItem<String>(
+                            value: garden.id,
+                            child: Text(garden.name),
+                          );
+                        }).toList(),
+                      ),
                     const SizedBox(height: 16),
                     TextField(
                       controller: notesController,
@@ -136,12 +162,13 @@ class _TaskListViewState extends State<TaskListView> {
                 ),
                 TextButton(
                   child: const Text('Add Task'),
-                  onPressed: () {
+                  onPressed: () async {
                     if (descController.text.isNotEmpty) {
-                      gardenProvider.addTask(
+                      await gardenProvider.addTask(
                         descController.text,
                         selectedDate,
                         notes: notesController.text.isNotEmpty ? notesController.text : null,
+                        gardenId: selectedGardenId, // Pass the selected garden ID
                       );
                       Navigator.of(context).pop();
                     }

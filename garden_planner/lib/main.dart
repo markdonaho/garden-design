@@ -1,9 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:firebase_core/firebase_core.dart'; // Import
+import 'firebase_options.dart'; // Import
 import 'providers/garden_provider.dart';
 import 'screens/home_screen.dart';
 
-void main() {
+void main() async { // Make main async
+  WidgetsFlutterBinding.ensureInitialized(); // Ensure bindings
+  await Firebase.initializeApp( // Initialize Firebase
+    options: firebaseOptions,
+  );
+
   runApp(const MyApp());
 }
 

@@ -1,82 +1,147 @@
 // lib/providers/garden_provider.dart
-
-import 'dart:convert';
-import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
+import 'package:flutter/foundation.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import '../models/garden_models.dart';
+import 'dart:async';
 
 class GardenProvider with ChangeNotifier {
-  List<Bed> _beds = <Bed>[];
-  List<GardenTask> _tasks = <GardenTask>[];
-  bool _isLoading = true;
+  List<GardenTask> _tasks = [];
+  List<Garden> _gardens = []; // To hold the list of gardens
 
-  List<Bed> get beds => _beds;
+  bool _areTasksLoading = true;
+  bool _areGardensLoading = true; // Loading state for gardens
+
+  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+
+  StreamSubscription<QuerySnapshot>? _tasksSubscription;
+  StreamSubscription<QuerySnapshot>? _gardensSubscription; // Stream for gardens
+
   List<GardenTask> get tasks => _tasks;
-  bool get isLoading => _isLoading;
+  List<Garden> get gardens => _gardens; // Getter for gardens
 
-  GardenProvider() {
-    loadGardenData();
+  bool get areTasksLoading => _areTasksLoading;
+  bool get areGardensLoading => _areGardensLoading; // Getter for garden loading state
+
+  List<GardenTask> get sortedTasks {
+    List<GardenTask> sorted = List.from(_tasks);
+    sorted.sort((a, b) {
+      if (a.isCompleted != b.isCompleted) return a.isCompleted ? 1 : -1;
+      return a.dueDate.compareTo(b.dueDate);
+    });
+    return sorted;
   }
 
-  Future<void> loadGardenData() async {
-    try {
-      _isLoading = true;
+  GardenProvider() {
+    _listenToGardens(); // Listen to gardens
+    _listenToTasks();   // Listen to tasks
+  }
+
+  void _listenToGardens() {
+    _gardensSubscription =
+        _firestore.collection('gardens').snapshots().listen((snapshot) {
+      _gardens = snapshot.docs
+          .map((doc) => Garden.fromJson(doc.data()..['id'] = doc.id))
+          .toList();
+      _areGardensLoading = false;
       notifyListeners();
-
-      final String response = await rootBundle.loadString('assets/garden_data.json');
-      final Map<String, dynamic> data = json.decode(response) as Map<String, dynamic>;
-
-      final List<dynamic> bedList = data['beds'] as List<dynamic>;
-      _beds = bedList.map((dynamic i) => Bed.fromJson(i as Map<String, dynamic>)).toList();
-
-      final List<dynamic> taskList = data['tasks'] as List<dynamic>;
-      _tasks = taskList.map((dynamic i) => GardenTask.fromJson(i as Map<String, dynamic>)).toList();
-
-      _isLoading = false;
+    }, onError: (error) {
+      debugPrint("Error listening to gardens snapshots: $error");
+      _areGardensLoading = false;
       notifyListeners();
-    } catch (error) {
-      _isLoading = false;
+    });
+  }
+
+  void _listenToTasks() {
+    _tasksSubscription =
+        _firestore.collection('tasks').snapshots().listen((snapshot) {
+      _tasks = snapshot.docs
+          .map((doc) => GardenTask.fromJson(doc.data()..['id'] = doc.id))
+          .toList();
+      _areTasksLoading = false;
       notifyListeners();
-      debugPrint('Error loading garden data: $error');
+    }, onError: (error) {
+      debugPrint("Error listening to tasks snapshots: $error");
+      _areTasksLoading = false;
+      notifyListeners();
+    });
+  }
+
+  Future<void> addGarden(String name) async {
+    DocumentReference docRef = _firestore.collection('gardens').doc();
+    final newGarden = Garden(
+      id: docRef.id,
+      name: name,
+      beds: [], // Start with empty beds
+    );
+    await docRef.set(newGarden.toJson());
+  }
+
+  Future<void> updateGarden(Garden garden) async {
+    await _firestore
+        .collection('gardens')
+        .doc(garden.id)
+        .set(garden.toJson(), SetOptions(merge: true));
+  }
+
+  Future<void> deleteGarden(String gardenId) async {
+    await _firestore.collection('gardens').doc(gardenId).delete();
+  }
+
+  Future<void> addBedToGarden(String gardenId, Bed newBed) async {
+    await _firestore.collection('gardens').doc(gardenId).update({
+      'beds': FieldValue.arrayUnion([newBed.toJson()])
+    });
+  }
+
+  Future<void> updateBedInGarden(String gardenId, Bed updatedBed) async {
+    final gardenRef = _firestore.collection('gardens').doc(gardenId);
+    final gardenDoc = await gardenRef.get();
+    if (gardenDoc.exists) {
+      final garden = Garden.fromJson(gardenDoc.data()!);
+      final bedIndex = garden.beds.indexWhere((b) => b.id == updatedBed.id);
+      if (bedIndex != -1) {
+        garden.beds[bedIndex] = updatedBed;
+        await gardenRef.set(garden.toJson());
+      }
     }
   }
 
-  void addTask(String description, DateTime dueDate, {String? notes}) {
+  Future<void> deleteBedFromGarden(String gardenId, Bed bedToDelete) async {
+    await _firestore.collection('gardens').doc(gardenId).update({
+      'beds': FieldValue.arrayRemove([bedToDelete.toJson()])
+    });
+  }
+
+  Future<void> addTask(String description, DateTime dueDate,
+      {String? notes, String? gardenId}) async {
+    DocumentReference docRef = _firestore.collection('tasks').doc();
     final newTask = GardenTask(
-      id: 'task_${DateTime.now().millisecondsSinceEpoch}', // Simple unique ID
+      id: docRef.id,
       description: description,
       dueDate: dueDate.toIso8601String().substring(0, 10),
       notes: notes,
       isCompleted: false,
+      gardenId: gardenId, // Set the gardenId
     );
-    _tasks.add(newTask);
-    notifyListeners();
+    await docRef.set(newTask.toJson());
   }
 
-  void toggleTaskCompletion(String taskId) {
-    final int taskIndex = _tasks.indexWhere((GardenTask task) => task.id == taskId);
-    if (taskIndex != -1) {
-      _tasks[taskIndex].isCompleted = !_tasks[taskIndex].isCompleted;
-      notifyListeners();
-    }
+  Future<void> toggleTaskCompletion(String taskId, bool isCompleted) async {
+    await _firestore
+        .collection('tasks')
+        .doc(taskId)
+        .update({'is_completed': isCompleted});
   }
 
-  void deleteTask(String taskId) {
-    _tasks.removeWhere((GardenTask task) => task.id == taskId);
-    notifyListeners();
+  Future<void> deleteTask(String taskId) async {
+    await _firestore.collection('tasks').doc(taskId).delete();
   }
 
-  void addBed(Bed bed) {
-    _beds.add(bed);
-    notifyListeners();
-  }
-
-  void updateBed(Bed updatedBed) {
-    final int bedIndex = _beds.indexWhere((Bed bed) => bed.id == updatedBed.id);
-    if (bedIndex != -1) {
-      _beds[bedIndex] = updatedBed;
-      notifyListeners();
-    }
+  @override
+  void dispose() {
+    _tasksSubscription?.cancel();
+    _gardensSubscription?.cancel(); // Dispose the gardens subscription
+    super.dispose();
   }
 }
 

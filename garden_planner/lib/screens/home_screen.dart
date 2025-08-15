@@ -1,6 +1,8 @@
 // lib/screens/home_screen.dart
 
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import '../providers/garden_provider.dart';
 import 'garden_layout_view.dart';
 import 'task_list_view.dart';
 
