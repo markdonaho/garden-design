@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'garden_layout_view.dart';
+import 'task_list_view.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -15,17 +16,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   static const List<Widget> _widgetOptions = <Widget>[
     GardenLayoutView(),
-    Center(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: <Widget>[
-          Icon(Icons.check_circle_outline, size: 64, color: Colors.grey),
-          SizedBox(height: 16),
-          Text('Task List', style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
-          Text('Coming in the next session!', style: TextStyle(color: Colors.grey)),
-        ],
-      ),
-    ),
+    TaskListView(),
   ];
 
   void _onItemTapped(int index) {

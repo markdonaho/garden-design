@@ -41,8 +41,15 @@ class GardenProvider with ChangeNotifier {
     }
   }
 
-  void addTask(GardenTask task) {
-    _tasks.add(task);
+  void addTask(String description, DateTime dueDate, {String? notes}) {
+    final newTask = GardenTask(
+      id: 'task_${DateTime.now().millisecondsSinceEpoch}', // Simple unique ID
+      description: description,
+      dueDate: dueDate.toIso8601String().substring(0, 10),
+      notes: notes,
+      isCompleted: false,
+    );
+    _tasks.add(newTask);
     notifyListeners();
   }
 
@@ -54,7 +61,7 @@ class GardenProvider with ChangeNotifier {
     }
   }
 
-  void removeTask(String taskId) {
+  void deleteTask(String taskId) {
     _tasks.removeWhere((GardenTask task) => task.id == taskId);
     notifyListeners();
   }

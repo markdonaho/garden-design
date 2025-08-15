@@ -103,12 +103,14 @@ class GardenTask {
   final String id;
   final String description;
   final String dueDate;
+  final String? notes; // Added for notes
   bool isCompleted;
 
   GardenTask({
     required this.id,
     required this.description,
     required this.dueDate,
+    this.notes, // Added for notes
     this.isCompleted = false,
   });
 
@@ -117,6 +119,7 @@ class GardenTask {
       id: json['id'] as String,
       description: json['description'] as String,
       dueDate: json['due_date'] as String,
+      notes: json['notes'] as String?, // Added for notes
       isCompleted: json['is_completed'] as bool,
     );
   }
@@ -126,6 +129,7 @@ class GardenTask {
       'id': id,
       'description': description,
       'due_date': dueDate,
+      'notes': notes, // Added for notes
       'is_completed': isCompleted,
     };
   }
