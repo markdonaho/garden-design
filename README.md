@@ -1,7 +1,7 @@
 # 🌱 Flutter Garden Planner App
 **A practical, user-friendly garden management app for parents**  
 **Technology:** Flutter Web with Provider state management  
-**Status:** Sessions 1–6 Complete — Ready for Session 7 (Task Management System)  
+**Status:** Sessions 1–7 Complete — Ready for Session 8 (Firebase Integration)  
 
 ## 🎯 **Project Overview**
 
@@ -23,7 +23,7 @@ A responsive Flutter web app that helps manage garden beds, track crops, monitor
 
 ### **Data Layer**
 - **JSON Assets** - Initial data structure and examples
-- **Shared Preferences** - Local browser storage for persistence
+- **Firebase** - Cloud Firestore for real-time data persistence and Firebase Hosting for deployment.
 - **Model Classes** - Type-safe data handling
 
 ### **State Management**
@@ -138,27 +138,39 @@ Here is the detailed session-by-session plan for building the Garden Planner app
 
 ---
 
-### **Session 7: Task Management System** 🚧 Up Next
+### **Session 7: Task Management System** ✅ Completed
 
 **🎯 Session Goal:** Build a full-featured task management screen allowing users to view, create, update, and delete garden tasks.
 
-**🔧 Key Steps:**
-1.  **Create `lib/screens/task_list_view.dart`**.
-2.  **Display Tasks**: Show a list of tasks from `GardenProvider`.
-3.  **Implement CRUD**: Add functionality to toggle completion, add new tasks, and delete tasks.
-4.  **Integrate with Home Screen**: Replace the placeholder "Tasks" view.
+**🔧 Step-by-Step Summary:**
+1.  **Create `lib/screens/task_list_view.dart`**: Built the UI to display a list of tasks.
+2.  **Implement CRUD in `GardenProvider`**: Added methods to add, delete, and toggle task completion.
+3.  **Enhance "Add Task" Dialog**: Based on user feedback, the dialog was rebuilt to include a notes field and a date picker.
+4.  **Integrate with Home Screen**: Replaced the placeholder "Tasks" view with the functional `TaskListView`.
+
+**✅ Success Criteria:**
+- [x] App displays a list of tasks on the "Tasks" tab.
+- [x] Users can check off tasks to mark them complete.
+- [x] Users can delete tasks.
+- [x] Users can add new, detailed tasks with specific due dates and notes.
 
 ---
 
-### **Session 8: Data Persistence** 💾
+### **Session 8: Data Persistence with Firebase** 💾 Up Next
 
-**🎯 Session Goal:** Implement local data persistence using the `shared_preferences` package to save and load garden data across app sessions.
+**🎯 Session Goal:** Migrate the application's data layer from a local JSON file to a cloud-based, persistent solution using Firebase Cloud Firestore.
+
+**🔧 Key Steps:**
+1.  **Firebase Project Setup**: Create a new project in the Firebase Console and register the web app.
+2.  **Integrate Firebase SDK**: Add `firebase_core` and `cloud_firestore` to `pubspec.yaml` and initialize Firebase in `main.dart`.
+3.  **Data Migration**: Create a one-time utility to upload the initial `garden_data.json` to Firestore.
+4.  **Refactor `GardenProvider`**: Rewrite all data handling methods (`loadGardenData`, `addTask`, etc.) to interact with Firestore collections instead of in-memory lists.
 
 ---
 
 ### **Session 9: Polish & Deployment** 🚀
 
-**🎯 Session Goal:** Refine the UI/UX, improve responsiveness, and prepare the application for web deployment.
+**🎯 Session Goal:** Refine the UI/UX, improve responsiveness, and deploy the application to Firebase Hosting.
 
 ## 📁 Repository Layout
 
@@ -178,12 +190,12 @@ garden-design/
 - Provider integrated: `GardenProvider` loads `assets/garden_data.json`
 - App renders responsive bed grid and bed detail modal in Chrome
 - Crop icons are now displayed in the bed detail view and on the home screen bed cards
+- A full-featured task management system is implemented with create, read, update, and delete functionality.
 
 ## 📝 TODO (Up Next)
 
-- Implement Tasks tab with list, filters, and actions (Session 7)
-- Add local persistence with `shared_preferences` (Session 8)
-- Polish UI/UX and prepare for deployment (Session 9)
+- Integrate Firebase and migrate data to Cloud Firestore (Session 8)
+- Polish UI/UX and deploy the app to Firebase Hosting (Session 9)
 
 ## 🚀 Quick Start
 
@@ -327,12 +339,3 @@ MyApp
         └── Home (Session 4 adds HomeScreen/GardenLayoutView)
 ```
 
-## 🚀 **Current Development Status**
-
-### ✅ Sessions Completed
-- Session 1: Project setup, dependencies, assets
-- Session 2: Data models with JSON mapping
-- Session 3: Provider integration and data load
-
-### ▶️ Next
-- Session 4: Home UI and Garden Layout grid
