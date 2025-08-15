@@ -1,7 +1,7 @@
 # 🌱 Flutter Garden Planner App
 **A practical, user-friendly garden management app for parents**  
 **Technology:** Flutter Web with Provider state management  
-**Status:** Sessions 1–5 Complete — Ready for Session 6 (Visual Enhancements)  
+**Status:** Sessions 1–6 Complete — Ready for Session 7 (Task Management System)  
 
 ## 🎯 **Project Overview**
 
@@ -33,16 +33,132 @@ A responsive Flutter web app that helps manage garden beds, track crops, monitor
 
 ## 📋 **Development Plan**
 
-### **Session-Based Implementation (9 Sessions)**
-1. **Session 1:** ✅ Project Setup & Data Foundation — Completed
-2. **Session 2:** ✅ Data Modeling with Dart — Completed
-3. **Session 3:** ✅ State Management Setup (Provider) — Completed
-4. **Session 4:** 🏠 Home Screen & Garden Layout — Completed
-5. **Session 5:** 📋 Bed Detail Modal — Completed
-6. **Session 6:** 🎨 Visual Garden Representation — Completed
-7. **Session 7:** Task Management System 
-8. **Session 8:** Data Persistence 💾
-9. **Session 9:** Polish & Deployment 🚀
+Here is the detailed session-by-session plan for building the Garden Planner app.
+
+---
+
+### **Session 1: Project Setup & Data Foundation** ✅ Completed
+
+**🎯 Session Goal:** Initialize Flutter project with dependencies and create the initial JSON data structure that will serve as the app's database.
+
+**🔧 Step-by-Step Summary:**
+1.  **Create Flutter Project**: `flutter create garden_planner`
+2.  **Add Dependencies**: `provider`, `shared_preferences`
+3.  **Create `assets/garden_data.json`**: Defined initial data for beds and tasks.
+4.  **Configure `pubspec.yaml`**: Linked the assets.
+5.  **Test Project**: Ran `flutter run` to ensure setup was correct.
+
+**✅ Success Criteria:**
+- [x] Flutter project runs without errors.
+- [x] Dependencies resolve correctly.
+- [x] Assets are accessible.
+
+---
+
+### **Session 2: Data Modeling with Dart** ✅ Completed
+
+**🎯 Session Goal:** Create type-safe Dart classes (`Crop`, `Soil`, `Bed`, `GardenTask`) corresponding to the JSON structure.
+
+**🔧 Step-by-Step Summary:**
+1.  **Create `lib/models/garden_models.dart`**.
+2.  **Implement Classes**: Added `fromJson` and `toJson` factories for robust data handling.
+3.  **Analyze Code**: Ran `flutter analyze` to ensure no errors.
+
+**✅ Success Criteria:**
+- [x] All model classes compile without errors.
+- [x] `flutter analyze` shows no errors.
+- [x] Models have proper JSON serialization methods.
+
+---
+
+### **Session 3: State Management Setup** ✅ Completed
+
+**🎯 Session Goal:** Create the `GardenProvider` class to manage application state, load data from JSON, and notify the UI of changes.
+
+**🔧 Step-by-Step Summary:**
+1.  **Create `lib/providers/garden_provider.dart`**.
+2.  **Implement `GardenProvider`**: Added logic to load `garden_data.json` and manage lists of beds and tasks.
+3.  **Integrate Provider**: Wrapped the `MyApp` widget with `ChangeNotifierProvider` in `lib/main.dart`.
+4.  **Test Integration**: Displayed bed and task counts on a placeholder home screen.
+
+**✅ Success Criteria:**
+- [x] App starts without errors.
+- [x] Garden data loads and displays correctly.
+- [x] Provider is accessible throughout the app.
+
+---
+
+### **Session 4: Home Screen & Garden Layout** ✅ Completed
+
+**🎯 Session Goal:** Create the main UI with bottom navigation and a responsive grid display of garden beds.
+
+**🔧 Step-by-Step Summary:**
+1.  **Create `lib/screens/home_screen.dart`**: Implemented `Scaffold` with `BottomNavigationBar`.
+2.  **Create `lib/screens/garden_layout_view.dart`**: Built a `GridView` to display `Bed` objects from `GardenProvider`.
+3.  **Style Bed Cards**: Designed cards to show key bed information.
+4.  **Update `main.dart`**: Set `HomeScreen` as the app's home.
+
+**✅ Success Criteria:**
+- [x] App displays garden beds in a grid layout.
+- [x] Bottom navigation works.
+- [x] Bed cards show relevant information.
+
+---
+
+### **Session 5: Bed Detail Modal** ✅ Completed
+
+**🎯 Session Goal:** Implement an interactive modal bottom sheet to display comprehensive information for each garden bed.
+
+**🔧 Step-by-Step Summary:**
+1.  **Create `lib/widgets/bed_detail_sheet.dart`**.
+2.  **Design Modal UI**: Included sections for soil info, crops, and quick actions.
+3.  **Integrate Modal**: Triggered `showModalBottomSheet` on bed card tap in `garden_layout_view.dart`.
+
+**✅ Success Criteria:**
+- [x] Tapping a bed card opens a modal bottom sheet.
+- [x] Modal displays comprehensive bed information.
+- [x] Modal can be closed and scrolled.
+
+---
+
+### **Session 6: Visual Garden Representation** ✅ Completed
+
+**🎯 Session Goal:** Enhance the UI by adding crop icons and refining the styling of garden bed cards.
+
+**🔧 Step-by-Step Summary:**
+1.  **Create `lib/utils/crop_icons.dart`**: A utility to map crop names to `IconData`.
+2.  **Update `bed_detail_sheet.dart`**: Replaced text avatars with icons in the crop list.
+3.  **Update `garden_layout_view.dart`**: Added a row of crop icons to each bed card for a quick visual summary.
+4.  **Restyle Bed Cards**: Applied a brown background and border to make cards look more like garden beds.
+
+**✅ Success Criteria:**
+- [x] Crop icons are displayed in the `BedDetailSheet`.
+- [x] A summary of crop icons is visible on each bed card.
+- [x] Bed cards have an enhanced garden-themed style.
+
+---
+
+### **Session 7: Task Management System** 🚧 Up Next
+
+**🎯 Session Goal:** Build a full-featured task management screen allowing users to view, create, update, and delete garden tasks.
+
+**🔧 Key Steps:**
+1.  **Create `lib/screens/task_list_view.dart`**.
+2.  **Display Tasks**: Show a list of tasks from `GardenProvider`.
+3.  **Implement CRUD**: Add functionality to toggle completion, add new tasks, and delete tasks.
+4.  **Integrate with Home Screen**: Replace the placeholder "Tasks" view.
+
+---
+
+### **Session 8: Data Persistence** 💾
+
+**🎯 Session Goal:** Implement local data persistence using the `shared_preferences` package to save and load garden data across app sessions.
+
+---
+
+### **Session 9: Polish & Deployment** 🚀
+
+**🎯 Session Goal:** Refine the UI/UX, improve responsiveness, and prepare the application for web deployment.
 
 ## 📁 Repository Layout
 
@@ -65,9 +181,9 @@ garden-design/
 
 ## 📝 TODO (Up Next)
 
-- Add crop icon mapping and visual polish for beds and modal (Session 6)
 - Implement Tasks tab with list, filters, and actions (Session 7)
 - Add local persistence with `shared_preferences` (Session 8)
+- Polish UI/UX and prepare for deployment (Session 9)
 
 ## 🚀 Quick Start
 
@@ -99,20 +215,26 @@ flutter:
 
 ## 🎨 Visual Design & Enhancements
 
-### Design Principles
-- Simplicity first: clean UI, intuitive navigation, large touch targets
-- Garden-centric palette: greens, browns; organic shapes and hierarchy
-- Accessibility: high contrast, readable typography, large text options
+This section outlines the strategy for creating an intuitive and visually appealing user interface. For detailed research and alternative options, see `Archive/VISUAL_ENHANCEMENT_RESEARCH.md` (once moved).
 
-### Visual Elements
-- Plant icons (built-in initially; custom SVGs as we expand)
-- Garden bed visuals and pathways between beds
-- Status indicators (watering, health, harvest readiness)
+### Design Principles
+- **Simplicity First**: Clean UI, intuitive navigation, and large touch targets.
+- **Garden-Centric Palette**: Use greens, browns, and other organic colors and shapes.
+- **Accessibility**: Ensure high contrast, readable typography, and support for screen readers.
+
+### Core Visual Elements
+- **Crop Icons**: Use built-in Material icons initially, with a plan to migrate to custom SVGs for better recognition.
+- **Garden Bed Visuals**: Style bed cards to be visually distinct and representative.
+- **Status Indicators**: Implement visual cues for plant health, watering needs, and harvest readiness.
 
 ### Recommended Packages
-- `flutter_svg` for scalable graphics
-- `font_awesome_flutter` for supplemental icons
-- `flutter_staggered_grid_view` for organic bed layouts (optional)
+- `flutter_svg`: For scalable custom SVG icons.
+- `font_awesome_flutter`: For a wider range of supplemental icons.
+
+### Phased Implementation Strategy
+- **Phase 1 (Complete)**: Use built-in icons and basic styling for bed cards.
+- **Phase 2 (In Progress)**: Introduce custom SVG icons for key crops and enhance layout graphics.
+- **Phase 3 (Future)**: Explore advanced visualizations like pathway graphics, seasonal themes, and interactive map views.
 
 ## 📱 **User Experience**
 
